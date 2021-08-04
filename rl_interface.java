@@ -87,7 +87,7 @@ public class rl_interface extends JFrame {
 					if(rs.next()) {
 						JOptionPane.showMessageDialog(null, "Logged in");
 						dispose();
-						HubPage.hub();
+						HubPage.hub(user.getText());
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Incorrect username or password");

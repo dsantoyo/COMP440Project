@@ -21,7 +21,6 @@ USE dbwithusername;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
 --
 -- Table structure for table `users`
 --
@@ -75,7 +74,7 @@ DROP TABLE IF EXISTS `blogstags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `blogstags` (
-  `blogid` int(10) unsigned NOT NULL,
+  `blogid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tag` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`blogid`,`tag`),
   CONSTRAINT `blogstags_ibfk_1` FOREIGN KEY (`blogid`) REFERENCES `blogs` (`blogid`)
@@ -199,3 +198,23 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2021-07-29 18:40:42
+
+SET collation_connection = 'utf8_general_ci';
+ALTER DATABASE dbwithusername CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+DELIMITER //
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Insert_Blog_Procedure`(
+	subj varchar(250),
+    des varchar(500),
+    postDate varchar(25),
+    userName varchar(25),
+    ta varchar(25)
+    )
+	BEGIN
+	IF((SELECT count(*) from `blogs` WHERE `created_by` = userName and pdate = current_date()) < 2) THEN
+		INSERT INTO `blogs`(`subject`, `description`, `pdate`, `created_by`)
+		VALUES (subj, des, postDate, userName);
+        INSERT INTO `blogstags`(`tag`) VALUES (ta);
+	END IF;
+END

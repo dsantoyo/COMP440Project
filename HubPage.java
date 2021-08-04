@@ -19,11 +19,11 @@ public class HubPage extends JFrame {
 
 	private JPanel contentPane;
 
-	public static void hub() {
+	public static void hub(String username) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HubPage frame = new HubPage();
+					HubPage frame = new HubPage(username);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,10 +32,7 @@ public class HubPage extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public HubPage() {
+	public HubPage(String username) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 707);
 		contentPane = new JPanel();
@@ -96,8 +93,8 @@ public class HubPage extends JFrame {
 		
 		JButton insertBButton = new JButton("Insert a blog");
 		insertBButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//create new GUI for this
+			public void actionPerformed(ActionEvent arg) {
+				BlogInsert.blogInsert(username);
 			}
 		});
 		insertBButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
