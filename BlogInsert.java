@@ -41,7 +41,7 @@ public class BlogInsert extends JFrame {
 	}
 
 	public BlogInsert(String username) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 561, 541);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,7 +91,7 @@ public class BlogInsert extends JFrame {
 				try {
 					Class.forName("com.mysql.cj.jdbc.Driver");
 					
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbwithusername", "root", "rock");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbwithusername", "comp440", "pass1234");
 					Statement state = con.createStatement();
 					
 					boolean valid = true;

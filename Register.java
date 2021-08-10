@@ -25,8 +25,6 @@ public class Register extends JFrame {
 	private JTextField uname;
 	private JPasswordField pass;
 	private JPasswordField passConfirm;
-	private JTextField firstName;
-	private JTextField lastName;
 	private JTextField email;
 
 
@@ -44,7 +42,7 @@ public class Register extends JFrame {
 	}
 
 	public Register() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 521, 486);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -88,36 +86,14 @@ public class Register extends JFrame {
 		passConfirm.setBounds(158, 181, 210, 26);
 		contentPane.add(passConfirm);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("First Name:");
-		lblNewLabel_1_2.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-		lblNewLabel_1_2.setBounds(15, 227, 91, 35);
-		contentPane.add(lblNewLabel_1_2);
-		
-		firstName = new JTextField();
-		firstName.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-		firstName.setBounds(110, 232, 258, 26);
-		contentPane.add(firstName);
-		firstName.setColumns(10);
-		
-		JLabel lblNewLabel_1_3 = new JLabel("Last Name: ");
-		lblNewLabel_1_3.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-		lblNewLabel_1_3.setBounds(15, 278, 91, 35);
-		contentPane.add(lblNewLabel_1_3);
-		
-		lastName = new JTextField();
-		lastName.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-		lastName.setBounds(110, 283, 258, 26);
-		contentPane.add(lastName);
-		lastName.setColumns(10);
-		
 		JLabel lblNewLabel_1_4 = new JLabel("Email: ");
 		lblNewLabel_1_4.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-		lblNewLabel_1_4.setBounds(15, 329, 91, 35);
+		lblNewLabel_1_4.setBounds(15, 227, 91, 35);
 		contentPane.add(lblNewLabel_1_4);
 		
 		email = new JTextField();
 		email.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-		email.setBounds(72, 334, 296, 26);
+		email.setBounds(72, 231, 296, 26);
 		contentPane.add(email);
 		email.setColumns(10);
 		
@@ -127,7 +103,7 @@ public class Register extends JFrame {
 				try {
 					Class.forName("com.mysql.cj.jdbc.Driver");
 					
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbwithusername", "root", "rock");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbwithusername", "comp440", "pass1234");
 					Statement state = con.createStatement();
 					
 					boolean valid = true;
@@ -137,11 +113,9 @@ public class Register extends JFrame {
 					String username = uname.getText();
 					String password = String.valueOf(pass.getPassword());
 					String passwordC = String.valueOf(passConfirm.getPassword());
-					String fname = firstName.getText();
-					String lname = lastName.getText();
 					String Email = email.getText();
-					String insert = "INSERT INTO users (username, userpass, fname, lname, email) " + "VALUES ('"+uname.getText()+"', '"+password+"', '"+firstName.getText()+"', '"+lastName.getText()+"', '"+email.getText()+"');";
-					
+					String insertBackup = "INSERT INTO backup (username, password, email) " + "VALUES ('"+uname.getText()+"', '"+password+"', '"+email.getText()+"');";
+					String insert = "INSERT INTO users (username, password, email) " + "VALUES ('"+uname.getText()+"', '"+password+"', '"+email.getText()+"');";
 					ResultSet rs = state.executeQuery(checkUsername);
 					
 					if(username.length() == 0) {
@@ -164,16 +138,6 @@ public class Register extends JFrame {
 						valid = false;
 					}
 					
-					if(fname.length() == 0) {
-						JOptionPane.showMessageDialog(null, "Please enter a first name");
-						valid = false;
-					}
-					
-					if(lname.length() == 0) {
-						JOptionPane.showMessageDialog(null, "Please enter a last name");
-						valid = false;
-					}
-					
 					if(Email.length() == 0) {
 						JOptionPane.showMessageDialog(null, "Please enter an email");
 						valid = false;
@@ -188,6 +152,7 @@ public class Register extends JFrame {
 					
 					if(valid == true) {
 						state.executeUpdate(insert);
+						state.executeUpdate(insertBackup);						
 						JOptionPane.showMessageDialog(null, "Account created!");
 						dispose();
 					}
@@ -200,7 +165,7 @@ public class Register extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-		btnNewButton.setBounds(180, 376, 138, 38);
+		btnNewButton.setBounds(179, 302, 138, 38);
 		contentPane.add(btnNewButton);
 	}
 
