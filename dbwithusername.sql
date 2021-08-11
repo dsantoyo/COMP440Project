@@ -218,17 +218,15 @@ ALTER DATABASE dbwithusername CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 DELIMITER //
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Insert_Blog_Procedure`(
+CREATE DEFINER=`comp440`@`localhost` PROCEDURE `Insert_Blog_Procedure`(
 	subj varchar(250),
     des varchar(500),
     postDate varchar(25),
-    userName varchar(25),
-    ta varchar(25)
+    userName varchar(25)
     )
 	BEGIN
 	IF((SELECT count(*) from `blogs` WHERE `created_by` = userName and pdate = current_date()) < 2) THEN
 		INSERT INTO `blogs`(`subject`, `description`, `pdate`, `created_by`)
 		VALUES (subj, des, postDate, userName);
-        INSERT INTO `blogstags`(`tag`) VALUES (ta);
 	END IF;
 END

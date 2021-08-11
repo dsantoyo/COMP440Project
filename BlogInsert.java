@@ -14,9 +14,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.StringTokenizer;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 
@@ -100,11 +102,14 @@ public class BlogInsert extends JFrame {
 					String desc = descField.getText();
 					String tag = tagField.getText();
 					
+					StringTokenizer tags = new StringTokenizer(tag, ",");
+					
 					DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 					LocalDateTime now = LocalDateTime.now();
 					String pdate = date.format(now);
 					
-					String call = "call Insert_Blog_Procedure('"+sub+"', '"+desc+"', '"+pdate+"', '"+username+"', '"+tag+"');";
+					String call = "call Insert_Blog_Procedure('"+sub+"', '"+desc+"', '"+pdate+"', '"+username+"');";
+					String insertTags = "";
 					
 					if(sub.length() == 0) {
 						JOptionPane.showMessageDialog(null, "Please enter a subject");
@@ -123,6 +128,20 @@ public class BlogInsert extends JFrame {
 					
 					if(valid) {
 						state.executeUpdate(call);
+						ResultSet rs = state.executeQuery("SELECT LAST_INSERT_ID()");
+						int id = 0;
+						String t = "";
+						if(rs.next()) {
+							id = rs.getInt(1);
+						}
+						
+						while(tags.hasMoreTokens()) {
+							t = tags.nextToken();
+							insertTags = "INSERT INTO blogstags (blogid, tag) " + "VALUES ('"+id+"', '"+t+"');";
+							state.executeUpdate(insertTags);
+						}
+						
+						
 						JOptionPane.showMessageDialog(null, "Blog inserted!");
 						
 					}
