@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -307,5 +308,71 @@ public class HubPage extends JFrame {
 		Title.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
 		Title.setBounds(399, 0, 271, 36);
 		contentPane.add(Title);
+		
+		JButton btnViewBlogsOf = new JButton("View Blogs of User X");
+		btnViewBlogsOf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UsersX.UserX();
+			}
+		});
+		btnViewBlogsOf.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		btnViewBlogsOf.setBounds(66, 430, 247, 55);
+		contentPane.add(btnViewBlogsOf);
+		
+		JButton mostBlogsButton = new JButton("User list of most blogs");
+		mostBlogsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbwithusername", "comp440", "pass1234");
+					Statement state = con.createStatement();
+					
+					String sql = "SELECT pdate FROM blogs WHERE pdate= '2020-10-10';";
+					ResultSet rs = state.executeQuery(sql);
+					
+					if(rs.next()) {
+						MostBlogsDate.MostBlogDate();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "No blogs were posted on that date");
+					}
+					
+					con.close();
+				} 
+				catch(Exception e) {
+					System.out.print(e);
+				}
+			}
+		});
+		mostBlogsButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		mostBlogsButton.setBounds(729, 430, 247, 55);
+		contentPane.add(mostBlogsButton);
+		
+		JLabel dateLabel = new JLabel("10/10/2020");
+		dateLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		dateLabel.setBounds(804, 394, 109, 20);
+		contentPane.add(dateLabel);
+		
+		JButton followed_by_XY = new JButton("Followed by X and Y");
+		followed_by_XY.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UsersXY.UserXY();
+			}
+		});
+		followed_by_XY.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		followed_by_XY.setBounds(66, 525, 247, 55);
+		contentPane.add(followed_by_XY);
+		
+		JButton tagX = new JButton("Tag X");
+		tagX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TagPrompt.Prompt();
+			}
+		});
+		tagX.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		tagX.setBounds(399, 525, 247, 55);
+		contentPane.add(tagX);
 	}
 }

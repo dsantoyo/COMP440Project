@@ -145,7 +145,6 @@ public class rl_interface extends JFrame {
 						state.executeUpdate(sql);
 						
 						sql = "SET FOREIGN_KEY_CHECKS = 1";
-						
 						state.executeUpdate(sql);
 						
 						
@@ -229,29 +228,40 @@ public class rl_interface extends JFrame {
 						
 						state.executeUpdate(sql);
 						
-						sql = "INSERT INTO `blogs` VALUES (1,'Hello World','Hey everyone, this is my first blog. Hello world "
-								+ "and all who inhabit it!','2020-03-15','jsmith'),(2,'I love cats!','Cats are amazing. "
-								+ "They\\'re awesome, and fuzzy, and cute. Who DOESN\\'T love cats?','2020-03-17','catlover'),"
-								+ "(3,'Dogs are the best.','So I saw a post the other day talking about cats. Now, I love cats. "
-								+ "They\\'re great. But here\\'s the thing: dogs are just the best, okay? There\\'s no question "
-								+ "about it. That is all.','2020-03-19','doglover'),(4,'I am the night.','To all you lowly "
-								+ "criminals out there, this is a warning to know I am watching. I am justice. I am righteousness. "
-								+ "I am the NIGHT.','2020-03-24','batman'),(5,'Waka waka','waka waka waka waka waka waka waka "
-								+ "waka waka waka waka waka waka waka waka waka','2020-03-31','pacman'),(6,'Who is this Bob "
-								+ "guy?','Decided to start tracking down this mysterious human known as \\'Bob.\\' Who is Bob? "
-								+ "What does he do? WHY does he do it? There is a lot of mystery surrounding this person, and "
-								+ "I will be going into detail in future posts. Stay tuned!','2020-04-02','notbob'),(7,'Re: "
-								+ "I love cats.','A reader recently reached out to me about my last post. To be clear, I\\'m "
-								+ "not dissing our canine companions! But we\\'ve got to be honest here, why are cats better? "
-								+ "They\\'re smart, affectionate, and great cuddle partners. Cats are better. It\\'s just fact.',"
-								+ "'2020-04-04','catlover'),(8,'Scooby Dooby Doo!','The search for scooby snacks: Where did "
-								+ "they go? I know this whole quarantine thing is affecting businesses, but aren\\'t scooby "
-								+ "snacks counted as an essential service? Please post below if you find anything! I\\'m going "
-								+ "crazy here!','2020-04-05','scooby'),(9,'Bob Update','Dear readers, I know you have been "
-								+ "waiting anxiously for an update on Bob, but there is not much to share so far. He appears "
-								+ "to have little to no online presence. Just a clarification: I am decidedly NOT Bob. Thanks "
-								+ "all. Stay tuned for more!','2020-04-06','notbob'),(10,'Lizard People.','What are your guys\\' "
-								+ "thoughts on them? I, for one, welcome out reptitlian overlords.','2020-04-12','jdoe');";
+						sql = "INSERT INTO `blogs` VALUES (1,'Hello World','Hey everyone, this is my first blog. "
+								+ "Hello world and all who inhabit it!','2020-10-10','jsmith'),"
+								+ "(2,'I love cats!','Cats are amazing. They\\'re awesome, and fuzzy, and cute. "
+								+ "Who DOESN\\'T love cats?','2020-03-17','catlover'),(3,'Dogs are the best.',"
+								+ "'So I saw a post the other day talking about cats. Now, I love cats. They\\'re great. "
+								+ "But here\\'s the thing: dogs are just the best, okay? There\\'s no question about it. "
+								+ "That is all.','2020-03-19','doglover'),(4,'I am the night.','To all you lowly criminals "
+								+ "out there, this is a warning to know I am watching. I am justice. I am righteousness. "
+								+ "I am the NIGHT.','2020-03-24','batman'),(5,'Waka waka','waka waka waka waka waka waka "
+								+ "waka waka waka waka waka waka waka waka waka waka','2020-03-31','pacman'),"
+								+ "(6,'Who is this Bob guy?','Decided to start tracking down this mysterious "
+								+ "human known as \\'Bob.\\' Who is Bob? What does he do? WHY does he do it? "
+								+ "There is a lot of mystery surrounding this person, and I will be going into detail "
+								+ "in future posts. Stay tuned!','2020-04-02','notbob'),"
+								+ "(7,'Re: I love cats.','A reader recently reached out to me about my last post. "
+								+ "To be clear, I\\'m not dissing our canine companions! But we\\'ve got to be honest "
+								+ "here, why are cats better? They\\'re smart, affectionate, and great cuddle partners. "
+								+ "Cats are better. It\\'s just fact.','2020-04-04','catlover'),"
+								+ "(8,'Scooby Dooby Doo!','The search for scooby snacks: "
+								+ "Where did they go? I know this whole quarantine thing is affecting businesses, "
+								+ "but aren\\'t scooby snacks counted as an essential service? "
+								+ "Please post below if you find anything! I\\'m going crazy here!','2020-04-05','scooby'),"
+								+ "(9,'Bob Update','Dear readers, I know you have been waiting anxiously for "
+								+ "an update on Bob, but there is not much to share so far. He appears to have little "
+								+ "to no online presence. Just a clarification: I am decidedly NOT Bob. Thanks all. "
+								+ "Stay tuned for more!','2020-04-06','notbob'),"
+								+ "(10,'Lizard People.','What are your guys\\' thoughts on them? I, for one, welcome "
+								+ "out reptitlian overlords.','2020-04-12','jdoe'), "
+								+ "(11,'Introduction','Hey everyone, my name is Smith.','2020-10-10','jsmith'), "
+								+ "(12,'Big cats are scary','Big cats used to hunt humans!','2020-10-10','catlover'), "
+								+ "(13,'Kitties','Cats grow up so fast!','2020-10-10','catlover'), "
+								+ "(14,'The Best Friend of Humanity',"
+								+ "'Dogs truly are your best friend!','2020-10-10','doglover');\r\n" + 
+								"";
 						
 						state.executeUpdate(sql);
 						
@@ -278,8 +288,10 @@ public class rl_interface extends JFrame {
 						state.executeUpdate(sql);
 						
 						sql = "INSERT INTO `follows` VALUES ('jsmith','bob'),('batman','catlover'),('doglover','catlover'),"
-								+ "('catlover','doglover'),('jsmith','jdoe'),('pacman','matty'),('bob','notbob'),('jdoe','notbob'),"
-								+ "('batman','pacman'),('scooby','pacman'),('doglover','scooby'),('pacman','scooby');\r\n" + "";
+								+ "('catlover','doglover'),('jsmith','jdoe'),('pacman','matty'),('bob','notbob'),"
+								+ "('jdoe','notbob'),('batman','pacman'),('scooby','pacman'),('doglover','scooby'),"
+								+ "('pacman','scooby'), ('bob', 'scooby'), ('bob', 'catlover'), ('batman', 'scooby');\r\n" + 
+								"";
 						
 						state.executeUpdate(sql);
 						
