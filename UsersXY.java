@@ -91,7 +91,7 @@ public class UsersXY extends JFrame {
 					}
 					else
 					{
-						JOptionPane.showMessageDialog(null, "User X or Y not found!");
+						JOptionPane.showMessageDialog(null, "No one followed by " + userX.getText() + " and " + userY.getText());
 					}
 
 					con.close();

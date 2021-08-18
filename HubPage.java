@@ -374,5 +374,15 @@ public class HubPage extends JFrame {
 		tagX.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
 		tagX.setBounds(399, 525, 247, 55);
 		contentPane.add(tagX);
+		
+		JButton noComm = new JButton("Who've Never Commented");
+		noComm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				NeverCommented.NeverComm();
+			}
+		});
+		noComm.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		noComm.setBounds(729, 525, 247, 55);
+		contentPane.add(noComm);
 	}
 }

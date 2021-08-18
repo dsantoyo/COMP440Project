@@ -11,18 +11,19 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class MostBlogsDate extends JFrame {
+public class NeverCommented extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	public static void MostBlogDate() {
+	public static void NeverComm() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MostBlogsDate frame = new MostBlogsDate();
+					NeverCommented frame = new NeverCommented();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,22 +32,29 @@ public class MostBlogsDate extends JFrame {
 		});
 	}
 
-	public MostBlogsDate() {
+	public NeverCommented() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 513, 543);
+		setBounds(100, 100, 593, 543);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel title = new JLabel("Users who've posted the most number of blogs on 10/10/2020:");
+		JLabel title = new JLabel("Those who've never posted a comment:");
 		title.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-		title.setBounds(15, 16, 461, 35);
+		title.setBounds(15, 16, 490, 40);
 		contentPane.add(title);
 		
-		JTextArea userList = new JTextArea();
-		userList.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-		userList.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(15, 72, 385, 378);
+		contentPane.add(scrollPane);
+		
+		JTextArea list = new JTextArea();
+		list.setWrapStyleWord(true);
+		list.setLineWrap(true);
+		list.setEditable(false);
+		list.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		scrollPane.setViewportView(list);
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -54,35 +62,22 @@ public class MostBlogsDate extends JFrame {
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbwithusername", "comp440", "pass1234");
 			Statement state = con.createStatement();
 			
-			String sql = "DROP VIEW IF EXISTS `blogcount`";
-			state.executeUpdate(sql);
-			
-			sql = "CREATE VIEW blogcount AS SELECT COUNT(created_by) AS blog_count FROM blogs WHERE pdate= '2020-10-10' "
-					+ "GROUP BY created_by;";
-			state.executeUpdate(sql);
-			
-			sql = "SELECT created_by FROM blogs WHERE pdate= '2020-10-10' GROUP BY created_by "
-					+ "HAVING COUNT(created_by) IN (SELECT MAX(blog_count) FROM blogcount);";
-			
-			ResultSet rs = state.executeQuery(sql);
+			ResultSet rs = state.executeQuery("SELECT username FROM users WHERE username NOT IN \r\n" + 
+					"(SELECT posted_by FROM comments);");
 			
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int colNum = rsmd.getColumnCount();
-				
+			
 			while(rs.next()) {
 				for (int i = 1; i <= colNum; i++) {
 					String val = rs.getString(i);
-					userList.append(val +"\n");
+					list.append(val + "\n");
 				}
 			}
-			
 			con.close();
-		} 
+		}
 		catch(Exception e) {
 			System.out.print(e);
 		}
-		
-		userList.setBounds(25, 67, 278, 383);
-		contentPane.add(userList);
 	}
 }

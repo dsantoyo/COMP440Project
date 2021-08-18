@@ -81,7 +81,7 @@ public class UsersX extends JFrame {
 						ListBlogsX.ListBlogX(userX.getText());
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "Username not found");
+						JOptionPane.showMessageDialog(null, "Username not found or did not post blogs");
 					}
 					con.close();
 				} 
