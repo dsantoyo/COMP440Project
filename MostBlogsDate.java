@@ -61,8 +61,8 @@ public class MostBlogsDate extends JFrame {
 					+ "GROUP BY created_by;";
 			state.executeUpdate(sql);
 			
-			sql = "SELECT created_by FROM blogs WHERE pdate= '2020-10-10' GROUP BY created_by "
-					+ "HAVING COUNT(created_by) IN (SELECT MAX(blog_count) FROM blogcount);";
+			sql = "SELECT created_by, COUNT(created_by) as Total FROM blogs WHERE pdate= '2020-10-10' \r\n" + 
+					"GROUP BY created_by HAVING COUNT(created_by) IN (SELECT MAX(blog_count) FROM blogcount);";
 			
 			ResultSet rs = state.executeQuery(sql);
 			
@@ -72,8 +72,9 @@ public class MostBlogsDate extends JFrame {
 			while(rs.next()) {
 				for (int i = 1; i <= colNum; i++) {
 					String val = rs.getString(i);
-					userList.append(val +"\n");
+					userList.append(val + " ");
 				}
+				userList.append("\n");
 			}
 			
 			con.close();
